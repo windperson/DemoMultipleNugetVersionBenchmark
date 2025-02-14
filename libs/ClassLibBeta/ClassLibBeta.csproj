@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <NoWarn>NU1603</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <PackageId>ClassLibBeta</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>demo_name</Authors>
+        <Company>your_company</Company>
+        <PackageOutputPath>..\nupkgs</PackageOutputPath>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.13.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <!-- deliberately restrict to use json.net v13.x or above -->
+        <PackageReference Include="Newtonsoft.Json" Version="[13,)"/>
+    </ItemGroup>
+
+</Project>

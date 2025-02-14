@@ -1,0 +1,1 @@
+Get-ChildItem $PSScriptRoot\ClassLib*\*.csproj | ForEach-Object { dotnet build $_.FullName -c Release }
