@@ -1,11 +1,16 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Order;
 using SerializeLibsBenchmark.AssemblyResolvers;
 
 namespace SerializeLibsBenchmark;
 
-[MemoryDiagnoser(displayGenColumns: true)]
-[HideColumns("StdDev", "Error", "RatioSD")]
+[HideColumns("Job", "StdDev", "Error")]
+[Orderer(SummaryOrderPolicy.Declared)]
+[RankColumn]
 [ReturnValueValidator(failOnError: true)]
+[SimpleJob(runtimeMoniker: RuntimeMoniker.Net80)]
+[SimpleJob(runtimeMoniker: RuntimeMoniker.Net90)]
 public class JsonSerializerBenchmarks
 {
     private object _obj = null!;
@@ -36,7 +41,7 @@ public class JsonSerializerBenchmarks
         return ClassLibAlpha.SerializeTool.ToJSON(_obj);
     }
 
-    [Benchmark(Description = "Json.NET v13.x", Baseline = true)]
+    [Benchmark(Description = "Json.NET v13.x")]
     public string Lib_Beta_ToJSON()
     {
         return ClassLibBeta.SerializeTool.ToJSON(_obj);

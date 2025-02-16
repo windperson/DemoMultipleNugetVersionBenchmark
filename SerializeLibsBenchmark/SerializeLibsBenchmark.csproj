@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFrameworks>net9.0;net8.0;</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <DebugType>pdbonly</DebugType>
@@ -11,7 +11,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <RestoreSources>..\libs\nupkgs</RestoreSources>
+        <!-- To install our Classlib nugets in libs/nupkags folder -->
+        <RestoreAdditionalProjectSources>..\libs\nupkgs</RestoreAdditionalProjectSources>
         <NoWarn>NU1608</NoWarn>
     </PropertyGroup>
 
