@@ -21,4 +21,10 @@
         <PackageReference Include="ClassLibBeta" Version="1.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="BenchmarkDotNet.Artifacts\**"/>
+        <EmbeddedResource Remove="BenchmarkDotNet.Artifacts\**"/>
+        <None Remove="BenchmarkDotNet.Artifacts\**"/>
+    </ItemGroup>
+
 </Project>
