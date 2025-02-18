@@ -1,0 +1,31 @@
+variables:
+  remote_linux: http://remote-linux:5010
+
+jobs:
+  json_benchmarks:
+    sources:
+      JsonNetWithNugetBenchmark:
+        localFolder: .
+    project: JsonNetWithNugetBenchmark/JsonNetWithNugetBenchmark.csproj
+    variables:
+      filterArg: "JsonNetWithNugetBenchmark.JsonNetSerializerBenchmark.ToJsonString"
+    arguments: --filter {{filterArg}}
+    options:
+      benchmarkDotNet: true
+
+scenarios:
+  demo_benchmark:
+    application:
+      job: json_benchmarks
+
+profiles:
+  local:
+    jobs:
+      application:
+        endpoints:
+          - http://localhost:5010
+  remote-linux:
+    jobs: 
+      application:
+        endpoints: 
+          - "{{remote_linux}}"

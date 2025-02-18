@@ -9,4 +9,4 @@ var config = ManualConfig.Create(DefaultConfig.Instance)
         .AsBaseline());
 BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
 
-//BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
+// BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
