@@ -482,3 +482,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+**/libs/*.nupkg
+**/nuget_lib/*.nupkg
+**/json_export/*.json

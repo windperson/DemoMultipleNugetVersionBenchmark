@@ -8,7 +8,7 @@ jobs:
         localFolder: .
     project: JsonNetWithNugetBenchmark/JsonNetWithNugetBenchmark.csproj
     variables:
-      filterArg: "JsonNetWithNugetBenchmark.JsonNetSerializerBenchmark.ToJsonString"
+      filterArg: "JsonNetWithNugetBenchmark.JsonNetSerializerBenchmark.*"
     arguments: --filter {{filterArg}}
     options:
       benchmarkDotNet: true
@@ -34,3 +34,7 @@ profiles:
       application:
         endpoints: 
           - "{{remote_linux}}"
+        framework: net9.0
+        sdkVersion: 9.0.200
+        runtimeVersion: 9.0.2
+        aspNetCoreVersion: 9.0.2

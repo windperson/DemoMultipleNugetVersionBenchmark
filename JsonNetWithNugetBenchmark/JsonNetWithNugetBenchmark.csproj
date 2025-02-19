@@ -9,6 +9,8 @@
         <DebugSymbols>true</DebugSymbols>
         <IsPackable>false</IsPackable>
         <NoWarn>NU1903</NoWarn>
+        <!-- Do add this if you encounter the error CS0579: Duplicate 'System.Reflection.AssemblyVersionAttribute' on running on Linux crank-agent -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
     
     <ItemGroup>
@@ -23,4 +25,9 @@
         <None Remove="BenchmarkDotNet.Artifacts\**"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="json_export\**"/>
+        <EmbeddedResource Remove="json_export\**"/>
+        <None Remove="json_export\**"/>
+    </ItemGroup>
 </Project>
