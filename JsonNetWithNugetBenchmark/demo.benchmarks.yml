@@ -19,11 +19,16 @@ scenarios:
       job: json_benchmarks
 
 profiles:
-  local:
+  local-windows:
     jobs:
       application:
         endpoints:
           - http://localhost:5010
+        framework: net9.0
+        sdkVersion: 9.0.200
+        runtimeVersion: 9.0.2
+        aspNetCoreVersion: 9.0.2
+
   remote-linux:
     jobs: 
       application:
