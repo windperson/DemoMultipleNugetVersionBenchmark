@@ -1,0 +1,78 @@
+variables:
+  sdk_framework: net9.0
+  net9_sdkVersion: 9.0.200
+  net9_runtimeVersion: 9.0.2
+  net9_aspNetCoreVersion: 9.0.2
+  net8_sdkVersion: 8.0.406
+  net8_runtimeVersion: 8.0.13
+  net8_aspNetCoreVersion: 8.0.13
+  remote_host: remote-host-ip
+
+commands:
+  build_classlib-alpha:
+    - condition: job.environment.platform == "windows"
+      scriptType: batch
+      script: dotnet build libs\ClassLibAlpha\ClassLibAlpha.csproj -c Release
+    - condition: job.environment.platform != "windows"
+      scriptType: bash
+      script: dotnet build ./libs/ClassLibAlpha/ClassLibAlpha.csproj -c Release
+  build_classlib-beta:
+    - condition: job.environment.platform == "windows"
+      scriptType: batch
+      script: dotnet build libs\ClassLibBeta\ClassLibBeta.csproj -c Release
+    - condition: job.environment.platform != "windows"
+      scriptType: bash
+      script: dotnet build ./libs/ClassLibBeta/ClassLibBeta.csproj -c Release
+  build_classlib-gamma:
+    - condition: job.environment.platform == "windows"
+      scriptType: batch
+      script: dotnet build libs\ClassLibGamma\ClassLibGamma.csproj -c Release
+    - condition: job.environment.platform != "windows"
+      scriptType: bash
+      script: dotnet build ./libs/ClassLibGamma/ClassLibGamma.csproj -c Release
+
+jobs:
+  single_benchmark:
+    sources:
+      BenchmarkProject:
+        localFolder: SerializeLibsBenchmark/
+      nuget_package:
+        localFolder: libs/nupkgs
+        destinationFolder: libs/nupkgs/
+    project: BenchmarkProject/SerializeLibsBenchmark.csproj
+    beforeJob:
+      - build_classlib-alpha
+      - build_classlib-beta
+      - build_classlib-gamma
+    variables:
+      filterArg: "*"
+    arguments: --filter {{filterArg}}
+    framework: "{{run_framework}}"
+    options:
+      benchmarkDotNet: true
+      displayOutput: false
+
+scenarios:
+  benchmark:
+    application:
+      job: single_benchmark
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net9_runtimeVersion}}"
+      aspNetCoreVersion: "{{net9_aspNetCoreVersion}}"
+
+profiles:
+  local:
+    jobs:
+      application:
+        endpoints:
+          - http://localhost:5010
+        # framework: "{{sdk_framework}}"
+        # sdkVersion: "{{net9_sdkVersion}}"
+        # runtimeVersion: "{{net9_runtimeVersion}}"
+        # aspNetCoreVersion: "{{net9_aspNetCoreVersion}}"
+
+  remote:
+    jobs:
+      application:
+        endpoints:
+          - "http://{{remote_host}}:5010"

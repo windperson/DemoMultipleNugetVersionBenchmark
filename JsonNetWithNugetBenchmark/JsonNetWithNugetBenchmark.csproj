@@ -9,7 +9,7 @@
         <DebugSymbols>true</DebugSymbols>
         <IsPackable>false</IsPackable>
         <NoWarn>NU1903</NoWarn>
-        <!-- Do add this if you encounter the error CS0579: Duplicate 'System.Reflection.AssemblyVersionAttribute' on running on Linux crank-agent -->
+        <!-- Do add this if you encounter the error CS0579: Duplicate 'System.Reflection.AssemblyVersionAttribute' when running on crank-agent -->
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
     

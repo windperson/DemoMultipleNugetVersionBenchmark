@@ -8,6 +8,8 @@
         <DebugType>pdbonly</DebugType>
         <DebugSymbols>true</DebugSymbols>
         <IsPackable>false</IsPackable>
+        <!-- Do add this if you encounter the error CS0579: Duplicate 'System.Reflection.AssemblyVersionAttribute' when running on crank-agent -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -33,9 +35,16 @@
         <PackageReference Include="ClassLibGamma" Version="1.0.0"/>
     </ItemGroup>
 
+    <!-- Copy DLLs to output directory after build for running as "dotnet run" -->
     <Target Name="CopyJsonNetDlls" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)newtonsoft.json/12.0.3/lib/netstandard2.0/Newtonsoft.Json.dll" DestinationFolder="$(OutputPath)/json_net_dlls/ver_12"/>
-        <Copy SourceFiles="$(NuGetPackageRoot)newtonsoft.json/13.0.3/lib/net6.0/Newtonsoft.Json.dll" DestinationFolder="$(OutputPath)/json_net_dlls/ver_13"/>
+        <Copy SourceFiles="$(NuGetPackageRoot)newtonsoft.json/12.0.3/lib/netstandard2.0/Newtonsoft.Json.dll" DestinationFolder="$(OutputPath)/json_net_dlls/ver_12" />
+        <Copy SourceFiles="$(NuGetPackageRoot)newtonsoft.json/13.0.3/lib/net6.0/Newtonsoft.Json.dll" DestinationFolder="$(OutputPath)/json_net_dlls/ver_13" />
+    </Target>
+
+    <!-- Ensure the json_net_dlls folder is included in the publish output -->
+    <Target Name="CopyJsonNetDllsToPublish" AfterTargets="Publish">
+        <Copy SourceFiles="$(OutputPath)/json_net_dlls/ver_12/Newtonsoft.Json.dll" DestinationFolder="$(PublishDir)/json_net_dlls/ver_12" />
+        <Copy SourceFiles="$(OutputPath)/json_net_dlls/ver_13/Newtonsoft.Json.dll" DestinationFolder="$(PublishDir)/json_net_dlls/ver_13" />
     </Target>
 
 </Project>
