@@ -10,14 +10,12 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <!-- To install our Classlib nugets in libs/nupkags folder -->
-        <RestoreAdditionalProjectSources>..\libs\nupkgs</RestoreAdditionalProjectSources>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.14.0"/>
-        <PackageReference Include="ClassLibGamma" Version="1.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\libs\ClassLibGamma\ClassLibGamma.csproj" />
     </ItemGroup>
 
     <ItemGroup>

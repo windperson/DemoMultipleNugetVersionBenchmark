@@ -1,0 +1,122 @@
+variables:
+  run_framework: net9.0
+  net9_sdkVersion: 9.0.200
+  net9_runtimeVersion: 9.0.2
+  net9_aspNetCoreVersion: 9.0.2
+  net8_sdkVersion: 8.0.406
+  net8_runtimeVersion: 8.0.13
+  net8_aspNetCoreVersion: 8.0.13
+  remote_host: remote-host-ip
+
+jobs:
+  alpha_benchmark:
+    sources:
+      ClassLibAlphaBenchmark:
+        localFolder: ClassLibAlphaBenchmark/
+      ClassLib_src:
+        localFolder: libs/ClassLibAlpha/
+        destinationFolder: libs/ClassLibAlpha/
+    project: ClassLibAlphaBenchmark/ClassLibAlphaBenchmark.csproj
+    variables:
+      filterArg: "ClassLibAlphaBenchmark.JsonSerializerBenchmark.*"
+    arguments: --filter {{filterArg}}
+    framework: "{{run_framework}}"
+    options:
+      benchmarkDotNet: true
+      displayOutput: false
+
+  beta_benchmark:
+    sources:
+      ClassLibBetaBenchmark:
+        localFolder: ClassLibBetaBenchmark/
+      ClassLib_src:
+        localFolder: libs/ClassLibBeta/
+        destinationFolder: libs/ClassLibBeta/
+    project: ClassLibBetaBenchmark/ClassLibBetaBenchmark.csproj
+    variables:
+      filterArg: "ClassLibBetaBenchmark.JsonSerializerBenchmark.*"
+    arguments: --filter {{filterArg}}
+    framework: "{{run_framework}}"
+    options:
+      benchmarkDotNet: true
+      displayOutput: false
+
+  gamma_benchmark:
+    sources:
+      ClassLibGammaBenchmark:
+        localFolder: ClassLibGammaBenchmark/
+      ClassLib_src:
+        localFolder: libs/ClassLibGamma/
+        destinationFolder: libs/ClassLibGamma/
+    project: ClassLibGammaBenchmark/ClassLibGammaBenchmark.csproj
+    variables:
+      filterArg: "ClassLibGammaBenchmark.JsonSerializerBenchmark.*"
+    arguments: --filter {{filterArg}}
+    framework: "{{run_framework}}"
+    options:
+      benchmarkDotNet: true
+      displayOutput: false
+
+scenarios:
+  # classlib-alpha
+  classlib-alpha-net9-benchmark:
+    application:
+      job: alpha_benchmark
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net9_runtimeVersion}}"
+      aspNetCoreVersion: "{{net9_aspNetCoreVersion}}"
+  classlib-alpha-net8-benchmark:
+    application:
+      job: alpha_benchmark
+      variables:
+        run_framework: net8.0
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net8_runtimeVersion}}"
+      aspNetCoreVersion: "{{net8_aspNetCoreVersion}}"
+  # classlib-beta
+  classlib-beta-net9-benchmark:
+    application:
+      job: beta_benchmark
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net9_runtimeVersion}}"
+      aspNetCoreVersion: "{{net9_aspNetCoreVersion}}"
+  classlib-beta-net8-benchmark:
+    application:
+      job: beta_benchmark
+      variables:
+        run_framework: net8.0
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net8_runtimeVersion}}"
+      aspNetCoreVersion: "{{net8_aspNetCoreVersion}}"
+  # classlib-gamma:
+  classlib-gamma-net9-benchmark:
+    application:
+      job: gamma_benchmark
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net9_runtimeVersion}}"
+      aspNetCoreVersion: "{{net9_aspNetCoreVersion}}"
+  classlib-gamma-net8-benchmark:
+    application:
+      job: gamma_benchmark
+      variables:
+        run_framework: net8.0
+      sdkVersion: "{{net9_sdkVersion}}"
+      runtimeVersion: "{{net8_runtimeVersion}}"
+      aspNetCoreVersion: "{{net8_aspNetCoreVersion}}"
+
+profiles:
+  local:
+    jobs:
+      application:
+        endpoints:
+          - http://localhost:5010
+        # framework: "{{sdk_framework}}"
+        # sdkVersion: "{{net9_sdkVersion}}"
+        # runtimeVersion: "{{net9_runtimeVersion}}"
+        # aspNetCoreVersion: "{{net9_aspNetCoreVersion}}"
+
+  remote:
+    jobs:
+      application:
+        endpoints:
+          - "http://{{remote_host}}:5010"

@@ -6,8 +6,8 @@ namespace ClassLibBetaBenchmark;
 
 [HideColumns("Job", "StdDev", "Error")]
 [Orderer(SummaryOrderPolicy.Declared)]
-[SimpleJob(runtimeMoniker: RuntimeMoniker.Net80)]
-[SimpleJob(runtimeMoniker: RuntimeMoniker.Net90)]
+//[SimpleJob(runtimeMoniker: RuntimeMoniker.Net80)]
+//[SimpleJob(runtimeMoniker: RuntimeMoniker.Net90)]
 public class JsonSerializerBenchmark
 {
     private object _obj = null!;

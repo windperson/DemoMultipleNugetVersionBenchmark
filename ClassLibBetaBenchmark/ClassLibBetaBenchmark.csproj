@@ -8,17 +8,15 @@
         <DebugType>pdbonly</DebugType>
         <DebugSymbols>true</DebugSymbols>
         <IsPackable>false</IsPackable>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <!-- To install our Classlib nugets in libs/nupkags folder -->
-        <RestoreAdditionalProjectSources>..\libs\nupkgs</RestoreAdditionalProjectSources>
         <NoWarn>NU1603</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.14.0"/>
-        <PackageReference Include="ClassLibBeta" Version="1.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\libs\ClassLibBeta\ClassLibBeta.csproj" />
     </ItemGroup>
 
     <ItemGroup>
