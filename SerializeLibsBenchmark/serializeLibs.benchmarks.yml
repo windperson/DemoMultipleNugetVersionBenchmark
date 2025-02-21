@@ -12,33 +12,33 @@ commands:
   build_classlib-alpha:
     - condition: job.environment.platform == "windows"
       scriptType: batch
-      script: dotnet build libs\ClassLibAlpha\ClassLibAlpha.csproj -c Release
+      script: dotnet build ..\libs\ClassLibAlpha\ClassLibAlpha.csproj -c Release
     - condition: job.environment.platform != "windows"
       scriptType: bash
-      script: dotnet build ./libs/ClassLibAlpha/ClassLibAlpha.csproj -c Release
+      script: dotnet build ../libs/ClassLibAlpha/ClassLibAlpha.csproj -c Release
   build_classlib-beta:
     - condition: job.environment.platform == "windows"
       scriptType: batch
-      script: dotnet build libs\ClassLibBeta\ClassLibBeta.csproj -c Release
+      script: dotnet build ..\libs\ClassLibBeta\ClassLibBeta.csproj -c Release
     - condition: job.environment.platform != "windows"
       scriptType: bash
-      script: dotnet build ./libs/ClassLibBeta/ClassLibBeta.csproj -c Release
+      script: dotnet build ../libs/ClassLibBeta/ClassLibBeta.csproj -c Release
   build_classlib-gamma:
     - condition: job.environment.platform == "windows"
       scriptType: batch
-      script: dotnet build libs\ClassLibGamma\ClassLibGamma.csproj -c Release
+      script: dotnet build ..\libs\ClassLibGamma\ClassLibGamma.csproj -c Release
     - condition: job.environment.platform != "windows"
       scriptType: bash
-      script: dotnet build ./libs/ClassLibGamma/ClassLibGamma.csproj -c Release
+      script: dotnet build ../libs/ClassLibGamma/ClassLibGamma.csproj -c Release
 
 jobs:
   single_benchmark:
     sources:
       BenchmarkProject:
-        localFolder: SerializeLibsBenchmark/
+        localFolder: .
       nuget_package:
-        localFolder: libs/nupkgs
-        destinationFolder: libs/nupkgs/
+        localFolder: ../libs/nupkgs
+        destinationFolder: libs/nupkgs
     project: BenchmarkProject/SerializeLibsBenchmark.csproj
     beforeJob:
       - build_classlib-alpha

@@ -1,5 +1,5 @@
 variables:
-  remote_linux: http://remote-linux:5010
+  remote_host: remote-host-ip
 
 jobs:
   json_benchmarks:
@@ -19,7 +19,7 @@ scenarios:
       job: json_benchmarks
 
 profiles:
-  local-windows:
+  local:
     jobs:
       application:
         endpoints:
@@ -29,11 +29,11 @@ profiles:
         runtimeVersion: 9.0.2
         aspNetCoreVersion: 9.0.2
 
-  remote-linux:
+  remote:
     jobs: 
       application:
         endpoints: 
-          - "{{remote_linux}}"
+          - "http://{{remote_host}}:5010"
         framework: net9.0
         sdkVersion: 9.0.200
         runtimeVersion: 9.0.2

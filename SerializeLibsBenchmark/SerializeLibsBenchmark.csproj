@@ -10,6 +10,8 @@
         <IsPackable>false</IsPackable>
         <!-- Do add this if you encounter the error CS0579: Duplicate 'System.Reflection.AssemblyVersionAttribute' when running on crank-agent -->
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <!-- Do add this is you encounter the  error CS0579: Duplicate 'global::System.Runtime.Versioning.TargetFrameworkAttribute' -->
+        <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>  
     </PropertyGroup>
 
     <PropertyGroup>
